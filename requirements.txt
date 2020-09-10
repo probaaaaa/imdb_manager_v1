@@ -1,2 +1,6 @@
 selenium
+<<<<<<< HEAD
 python-dotenv
+=======
+python-dotenv
+>>>>>>> f13e495bb55f3966a31ef1e74dcb7c5cba362ab3
