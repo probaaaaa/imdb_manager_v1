@@ -37,9 +37,15 @@ print(text.format(num=len(movies), **movie))
 def main():
     choice = int(input('Choose an option: '))
     while True:
-        options = webdriver.ChromeOptions()
-        # options.headless = True
-        driver = webdriver.Chrome(options=options)
+        try:
+            options = webdriver.ChromeOptions()
+            options.headless = True
+            driver = webdriver.Chrome(options=options)
+        except:
+            options = webdriver.FirefoxOptions()
+            options.headless = True
+            driver = webdriver.Firefox(options=options)
+
         if choice == 1:
             print('You chose to rate "{Title}".'.format(**movie))
             locate_movie(driver, movie)
