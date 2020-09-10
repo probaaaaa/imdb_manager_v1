@@ -7,6 +7,8 @@ from functions import *
 # =================================
 # CHOOSE A RANDOM MOVIE
 # =================================
+
+# Open the watchlist .csv file and choose a random movie
 with open('WATCHLIST.csv') as f:
     rows = csv.DictReader(f, delimiter=',', quotechar='"')
     movies = [row for row in rows if row['Title Type'] == 'movie']
@@ -35,29 +37,39 @@ print(text.format(num=len(movies), **movie))
 
 
 def main():
-    choice = int(input('Choose an option: '))
     while True:
         try:
-            options = webdriver.ChromeOptions()
-            options.headless = True
-            driver = webdriver.Chrome(options=options)
-        except:
-            options = webdriver.FirefoxOptions()
-            options.headless = True
-            driver = webdriver.Firefox(options=options)
+            # Choose between 2 options (rate & remove the movie from the watchlist)
+            choice = int(input('Choose an option: '))
 
-        if choice == 1:
-            print('You chose to rate "{Title}".'.format(**movie))
-            locate_movie(driver, movie)
-            rate_movie(driver, movie)
-            print('Goodbye.')
-            break
-        elif choice == 2:
-            print('You chose to remove "{Title}" from your watchlist.'.format(**movie))
-            locate_movie(driver, movie)
-            remove_movie(driver, movie)
-            print('Goodbye.')
-            break
+            try:
+                # try with chrome web driver
+                options = webdriver.ChromeOptions()
+                # options.headless = True
+                driver = webdriver.Chrome(options=options)
+            except:
+                # if that doesn't work try firefox
+                options = webdriver.FirefoxOptions()
+                options.headless = True
+                driver = webdriver.Firefox(options=options)
+
+            if choice == 1:  # rate the movie on IMDb
+                print('You chose to rate "{Title}".'.format(**movie))
+                locate_movie(driver, movie)
+                rate_movie(driver, movie)
+                remove_movie(driver, movie)
+                print('Goodbye.')
+                driver.quit()
+                break
+            elif choice == 2:  # remove the movie from IMDb watchlist
+                print('You chose to remove "{Title}" from your watchlist.'.format(**movie))
+                locate_movie(driver, movie)
+                remove_movie(driver, movie)
+                print('Goodbye.')
+                driver.quit()
+                break
+        except:
+            print('Invalid input.')
 
 
 if __name__ == '__main__':

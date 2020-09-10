@@ -5,11 +5,13 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 from settings import EMAIL, PASS
 
 
+# open the IMDb page of the random chosen movie
 def locate_movie(driver, movie):
     print('Locating "{Title}"...'.format(**movie))
     movie_url = '{URL}'.format(**movie)
     driver.get(movie_url)
 
+    # sign in, enter email & password and submit the sign in form
     print('Signing in...')
     sign_in = driver.find_element_by_xpath('//*[@id="imdbHeader"]/div[2]/div[5]/a/div')
     sign_in.click()
@@ -26,6 +28,7 @@ def locate_movie(driver, movie):
     sign_in_submit.click()
 
 
+# rate the movie
 def rate_movie(driver, movie):
     print('Enter the rating for "{Title}"'.format(**movie))
     rating = int(input())
@@ -77,10 +80,8 @@ def rate_movie(driver, movie):
             '#star-rating-widget > div > div > span:nth-child(1) > span > a:nth-child(10)')
         rate_star.click()
 
-    # After rating, remove from the watchlist
-    remove_movie(driver, movie)
 
-
+# remove the movie from the watchlist
 def remove_movie(driver, movie):
     print('Removing "{Title}" from your watchlist...'.format(**movie))
 
