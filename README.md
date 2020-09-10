@@ -3,12 +3,13 @@
 Automating the rating and deletion of movies from the IMDb watchlist.
 
 ## Requirements
-####Packages:
+#### Packages:
+
 ```selenium```
 
 ```python-dotenv```
 
-####Webdriver:
+#### Webdriver:
 
 Download Chrome webdriver from [this link](https://chromedriver.chromium.org/downloads)
 
